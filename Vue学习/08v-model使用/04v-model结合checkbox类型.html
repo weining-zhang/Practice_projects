@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model结合checkbox类型</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、checkbox单选框情况:v-model是boolean值，此时input的value属性值不影响v-model的值 -->
+   <label for="agreement">
+     <input type="checkbox" id="agreement" v-model="isAgree">同意协议
+   </label>
+   <button :disabled="!isAgree">下一步</button><br><br>
+
+   <!-- 2、checkbox多选框情况:v-model对应数组，选中一个就将对应input的属性value值添加到数组中 -->
+   <input type="checkbox" value="篮球" v-model="hobbies">篮球
+   <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球
+   <input type="checkbox" value="乒乓球" v-model="hobbies">乒乓球
+   <input type="checkbox" value="排球" v-model="hobbies">排球
+   <h2>您的爱好是：{{hobbies}} </h2>
+
+   <!-- 3、input中的值绑定,即v-bind在input的应用 -->
+   <!-- 上面的value都是定义input时给定的，但真实开发中input的value值可能是从网络上获取，这就需要
+    动态绑定value值，获取到数据再遍历数据到界面上 -->
+   <label v-for="item of originHobbies" :for="item" >
+     <input type="checkbox" :value="item" :id="item" v-model="hobbies">{{item}}
+   </label>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        isAgree: false,
+        hobbies: [],
+        originHobbies: ['篮球', '羽毛球', '乒乓球', '排球'],
+      },
+    })
+  </script>
+</body>
+</html>

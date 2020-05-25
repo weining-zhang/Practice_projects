@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件化的基本使用</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 组件必须挂载在某个Vue实例下才会生效，在这里即组件必须在id为app的标签内才能生效 -->
+    <!-- 3、使用组件 -->
+    <my-cpn></my-cpn>
+    <my-cpn></my-cpn>
+    <my-cpn></my-cpn>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 1、创建组建构造器对象
+    // 创建组建构造器时，传入template代表我们自定义组件的模板，该模板就是在使用到组件的地方要显示的
+    // HTML代码。这种写法在vue2.x的文档中几乎已经看不到了，它会使用更加简单的语法糖
+    const cpnC = Vue.extend({
+      template: `
+        <div>
+          <h2>我是标题</h2>
+          <p>我是内容，哈哈哈</p>
+          <p>我是内容，呵呵呵</p>
+        </div>`
+    }) 
+
+    // 2、注册组件
+    // 调用Vue.component()是将刚才的组件构造器注册为一个组件，并给它起一个标签名
+    // 需要传递两个参数：1、组件的标签名 2、组件构造器
+    // Vue.component('组件的标签名', 构造器对象)
+    Vue.component('my-cpn', cpnC)
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+    
+      },
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-else的使用</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-if：当满足某种条件时才渲染元素 -->
+    <h2 v-if="ifShow"> 
+      <div>当ifShow为true时，显示我</div>
+      <div>abc</div>
+      <div>abc</div>
+      <div>abc</div>
+      {{message}} 
+    </h2>
+
+    <!-- 当v-if为false时，执行v-else -->
+    <h1 v-else>当ifShow为false时，显示我</h1>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message:'你好啊',
+        ifShow: true,
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-on的修饰符</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、.stop修饰符的使用，阻止冒泡 -->
+    <!-- 点击button时div的点击事件不会被触发 -->
+    <div @click="divClick">
+      aaaaaa
+      <button @click.stop="btnClick">加.stop按钮</button><br><br>
+    </div>
+
+    <!-- 2、.prevent修饰符的使用，阻止默认行为 -->
+    <!-- 点击submit时阻止它提交 -->
+    <form action="baidu">
+      <input type="submit" value="原始">
+      <!-- 此时也会提交，点击事件会响应但是一闪而过 -->
+      <input type="submit" @click="submitClick" value="只加点击事件">
+      <!-- 添加了prevent修饰符后 -->
+      <input type="submit" @click.prevent="submitClick" value="加prevent"><br><br>
+    </form>
+
+    <!-- 3、监听键盘的某个键帽 -->
+    <!-- 事件后加上.{keyCode | keyAlias},即键代码或键别名 -->
+    <!-- 加上.enter就是监听键盘的回车键，当按回车时才会触发回调，或者直接加上keyCode如.13 -->
+    <!-- 下面两个效果相同 -->
+    <input type="text" @keyup.enter="keyUp">
+    <input type="text" @keyup.13="keyUp"><br><br>
+
+    <!-- 4、(少用).once修饰符的使用，点击回调只会触发一次 -->
+    <button @click.once="btn2Click">加.once按钮</button>
+    
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        btnClick() {
+          console.log('btnClick');
+        },
+        divClick() {
+          console.log('divClick');
+        },
+        submitClick() {
+          console.log('submitClick');
+        },
+        keyUp() {
+          console.log('keyup');
+        },
+        btn2Click() {
+          console.log('btn2Click');
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-text</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{message}}，啧啧啧</h2>
+    <!-- v-text会覆盖dom元素中的数据，相当于js的innerHTML方法。 -->
+    <h2 v-text="message">，啧啧啧</h2> <!-- “，啧啧啧” 被x-text覆盖 -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        message: "你好啊"
+      }
+    })
+  </script>
+
+</body>
+
+</html>

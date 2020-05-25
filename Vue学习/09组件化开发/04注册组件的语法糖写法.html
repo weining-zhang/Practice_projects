@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注册组件的语法糖写法</title>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn2></cpn2>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+
+    // 注册全局组件的语法糖，省去创建组件构造器，直接在注册组件里写模板template
+    Vue.component('cpn', {
+      template: `
+        <div>
+          <h2>我是全局组件的语法糖写法</h2>
+          <p>我是内容，哈哈哈</p>
+        </div>
+      `
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+    
+      },
+      // 在Vue的components属性里注册组件即为局部组件,一般开发中常用局部组件
+      components: {
+      // 注册局部组件的语法糖写法，也不需要创建组件构造器，直接在注册组件里写模板template
+        cpn2:  {
+          template: `
+            <div>
+              <h2>我是局部组件的语法糖写法</h2>
+              <p>我是内容，哈哈哈</p>
+            </div>
+          `
+    }
+      }
+    })
+
+  </script>
+</body>
+</html>

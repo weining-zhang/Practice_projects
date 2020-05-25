@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-bind的基本使用</title>
+</head>
+<body>
+  <div id="app">  <!-- 动态获取图片链接 -->
+    <img v-bind:src="imgURL" alt="">
+    <a v-bind:href="aHerf"></a>
+    <!-- 语法糖写法 -->
+    <!-- 此时vue对象中定义的imgURL变量和aHerf变量可以动态的绑定到img标签的src属性和a标签的href属性 -->
+    <img :src="imgURL" alt="">
+    <a :href="aHerf"></a>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el:"#app",
+      data:{
+        message:"你好啊",
+        imgURL:"https://cn.bing.com/th?id=OIP.NaSKiHPRcquisK2EehUI3gHaE8&pid=Api&rs=1",
+        aHerf:"http://www.baidu.com"
+      }
+    })
+  </script>
+</body>
+</html>

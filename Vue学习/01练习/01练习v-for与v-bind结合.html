@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style>
+    .active {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- v-bind和v-for结合 -->
+  <!-- 1、点击列表中的哪一项，那一项的文字就变成红色 -->
+  <div id="list">
+    <ul><!-- 遍历后index已经被绑定（每个元素都有对应的index）,currentIndex是动态的 -->
+      <li v-for="(item, index) of movies" :key="index" :class="{active: index===currentIndex}"
+       @click="changeColor(index)">{{item}}</li>
+    </ul>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: '#list',
+      data: {
+        currentIndex: -1,
+        movies: ['海王', '复仇者联盟', '西部世界', '黑镜'],
+      },
+      methods: {
+        changeColor(index) {
+          this.currentIndex = index;
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for遍历数组</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、在遍历过程中，没有使用索引值(下标)的情况: -->
+    <ul>
+      <li v-for="item of names"> {{item}} </li>
+    </ul>
+
+    <!-- 2、遍历过程中，使用了索引值的情况： -->
+    <ul>
+      <li v-for="(item, index) of names"> {{index}}.{{item}} </li>
+    </ul>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        names: ['kobe', 'byrant', 'John', 'James'],
+      },
+     
+    })
+  </script>
+</body>
+</html>

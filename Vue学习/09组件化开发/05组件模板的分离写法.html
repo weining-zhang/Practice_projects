@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件模板的分离写法</title>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+  <!-- 分离写法一：用script标签，注意：类型必须是text/x-template -->
+  <!-- <script type="text/x-template" id="cpn">
+    <div>
+      <h2>我是用script标签分离的</h2>
+      <p>我是内容，哈哈哈</p>
+    </div>
+  </script> -->
+
+  <!-- 分离写法二：用template标签 -->
+  <template id="cpn">
+    <div>   <!-- 写模板时，要有个root元素包裹，即在div标签内写 -->
+      <h2>我是用template标签分离的</h2>
+      <p>我是内容，呵呵呵</p>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 1、注册一个全局组件
+    Vue.component('cpn', {
+      template: '#cpn'
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+    
+      },
+      components: {
+     
+      }
+    })
+
+  </script>
+</body>
+</html>

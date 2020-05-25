@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for绑定key与没绑定key区别</title>
+</head>
+<body>
+  <div id="app">
+
+    <ul>
+      <!-- 官方建议在使用v-for时绑定key -->
+      <!-- 绑定key的作用是为了更高效的更新虚拟DOM -->
+      <!-- 在元素插入数组时,key可以把原来的元素与序号绑定，本来0对应A，1对应B，插入元素后
+        0仍对应A，1仍对应B；但是如果没有绑定key的话在A后面插入F，0对应A，1更新成对应F了，后面的元素
+        也这样类推，这样虚拟DOM更新时要频繁改变渲染真实DOM的序号，效率低；key要与绑定的值一一对应 -->
+      <li v-for="value of letters" :key="value"> {{value}} </li>
+    </ul>
+
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        letters: ['A', 'B', 'C', 'D', 'E'],
+      },
+     
+    })
+  </script>
+</body>
+</html>

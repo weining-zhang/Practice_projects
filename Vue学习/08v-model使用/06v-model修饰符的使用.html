@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model修饰符的使用</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、lazy修饰符 -->
+    <!-- 默认情况下,v-model是在input事件中实时同步输入框的数据的,一旦有数据发生改变对应的data中的数据
+    就会自动改变，这样修改太过频繁；lazy修饰符可以让数据在失去焦点(鼠标点击输入框以外)或者回车时才更新，
+    这样就会减少修改次数 -->
+    <input type="text" v-model.lazy="message">
+    <h2>{{message}} </h2>
+
+    <!-- 2、number修饰符 -->
+    <!-- 默认情况下，无论输入框输入的是数字还是字母，v-model都会当作字符串类型来处理，加number修饰符
+    后v-model就会当作数字类型来处理 -->
+    <input type="number" v-model.number="age">
+    <h2>{{age}}的类型是：{{typeof age}} </h2>
+
+    <!-- 3、trim修饰符 -->
+    <!-- 如果输入的内容首尾有很多空格，trim修饰符可将内容左右两边的空格去除 -->
+    <input type="text" v-model.trim="name">
+    <h2>{{name}} </h2>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        age: 0,
+        name: ''
+      },
+    })
+  </script>
+</body>
+</html>

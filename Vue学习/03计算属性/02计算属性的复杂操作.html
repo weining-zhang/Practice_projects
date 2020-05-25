@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计算属性的复杂操作</title>
+</head>
+<body>
+  <div id="app">
+    <h2> 总价格：{{totalPrice}} </h2>
+
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        books: [
+          {id:110, name: 'JS高级程序设计', price: 119},
+          {id:111, name: 'CSS3权威指南', price: 109},
+          {id:112, name: 'ES6标准入门', price: 159},
+          {id:113, name: 'JS语言精粹', price: 179},
+        ]
+      },
+      //计算属性
+      computed: {
+        totalPrice() {
+          // 使用for-of遍历数组
+          let result = 0;
+          for (let book of this.books) {
+            console.log(book.price);
+            result += book.price;
+          }
+          return result;
+        },
+      },
+    })
+  </script>
+</body>
+</html>

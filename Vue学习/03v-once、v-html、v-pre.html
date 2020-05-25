@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-once、v-html、v-pre</title>
+</head>
+<body>
+  <div id="app"><!-- 下面{{message}}的message修改后，第一个h2标签数据会自动改变，第二个h2不会。 -->
+    <h2>{{message}}</h2>
+    <!-- 只会渲染一次，数据改变不会再次渲染 -->
+    <h2 v-once>{{message}}</h2>
+
+    <h3>不使用v-html</h3>
+    <h3>{{url}}</h3>
+    <!-- 在某些时候我们不希望直接输出<a href='http://www.baidu.com'>百度一下</a>
+      这样的字符串，而输出被html自己转化的超链接。此时可以使用v-html -->
+    <h3 v-html="url"></h3>
+
+    <!-- ​ 有时候我们期望直接输出{{message}}这样的字符串，而不是被{{}}语法转化的message的变量值，
+      此时我们可以使用v-pre标签 -->
+    <h4>{{message}}</h4>
+    <h4 v-pre>{{message}}</h4>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "你好啊",
+          url:"<a href='http://www.baidu.com'>百度一下</a>",
+        }
+      })
+    </script>
+  </div>
+</body>
+</html>

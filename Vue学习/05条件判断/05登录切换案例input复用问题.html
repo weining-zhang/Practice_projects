@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户登录切换案例input复用问题</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 在用户输入一些内容后点击切换并不会清空输入框的内容说明input复用了，设及到虚拟DOM -->
+    <!-- 要解决这个问题，在input加上key属性，vue会对比，若key相同仍然会复用 -->
+    <span v-if="isUser">
+      <label for="username">用户账号</label>
+      <input type="text" id="username" placeholder="请输入用户账号" key="username">
+    </span>
+    <span v-else>
+      <label for="email">用户邮箱</label>
+      <input type="text" id="email" placeholder="@qq.com" key="email">
+    </span>
+
+    <button @click="changeInputType">切换类型</button>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+       isUser: 'true',
+      },
+      methods: {
+        changeInputType() {
+          this.isUser = !this.isUser;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

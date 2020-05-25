@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父组件向子组件传递数据</title>
+</head>
+<body>
+  <div id="app">
+    <cpn :cmovies="movies" :cmessage="message"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <ul >
+        <li v-for="item of cmovies"> {{item}} </li>
+      </ul>
+      <h2> {{cmessage}} </h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 父传子：通过组件的props属性，在组件中，使用props属性来声明需要从父级接受到的数据
+    // 在root组件里注册组件可直接写成创建对象的形式（const cpn={}），而不用写成创建组件构造器的形式:
+    // const cpn = Vue.extend({})
+    const cpn = { 
+      template: '#cpn',
+      // props: ['cmovies', 'cmessage'], // props属性使用数组(少用)
+      props: {                           // props属性使用对象(常用)
+        //1、只有类型限制，限制cmovies是数组，cmessage是字符串或者数字
+        // cmovies: Array,
+        // cmessage: [String, Number],
+
+        //2、提供一些默认值，以及必传值
+        cmessage: {
+          type: String,
+          default: 'aaaaaa', //没有从父级接受到数据时的默认值
+          required: true,  //表示父组件必须传message这个值给子组件，否则会报错
+        },
+        cmovies: {
+          type: Array,
+          default() { //类型是对象或数组时，默认值必须是一个函数，而不能写成default: []或者default: {}
+            return []
+          }
+        }
+      },
+      data() {
+        return {
+
+        }
+      },
+      methods: {
+
+      },
+    }
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        movies: ['西部世界', '大空头', '大而不倒']
+      },
+      components: {
+        cpn: cpn
+      }
+    })
+
+  </script>
+</body>
+</html>

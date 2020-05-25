@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-else的使用</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2 v-if="score>=90">优</h2>
+    <h2 v-else-if="score>=80">良</h2>
+    <h2 v-else-if="score>=70">中</h2>
+    <h2 v-else-if="score>=60">及格</h2>
+    <h2 v-else>不及格</h2>
+
+    <!-- 当标签较多时,这样处理比较繁琐,可用计算属性专门处理这个逻辑,优化如下 -->
+    <h3> {{result}} </h3>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        score: 65,
+      },
+      computed: {
+        result() {
+          // let showMessage = '';
+          if (this.score>=90) return 'A';
+            else if (this.score>=80) return 'B';
+            else if (this.score>=70) return 'C';
+            else if (this.score>=60) return 'D';
+            else return 'fail';
+          // return showMessage;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

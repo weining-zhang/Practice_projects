@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件的data为什么是函数</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 两个组件不共享数据data，因为data是个函数，每调用一次返回一个新的对象 -->
+    <cpn></cpn>
+    <cpn></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2> 当前计数为：{{count}} </h2>
+      <button @click="decrement">-</button>
+      <button @click="increment">+</button>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+
+    Vue.component('cpn', {
+      template: '#cpn',
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        decrement() {
+          this.count--
+        },
+        increment() {
+          this.count++
+        }
+      }
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+    
+      },
+    })
+
+  </script>
+
+  <script>
+    // const obj = {
+    //   name: 'kobe',
+    //   age: 40
+    // }
+    // function getItem() {
+    //   return obj;
+    // }
+    // // 这时三个对象obj1、2、3都是指向obj对象的内存地址，因为getItem函数返回的是obj对象
+    // let ojb1 = getItem();
+    // let ojb2 = getItem();
+    // let ojb3 = getItem();
+
+    // function getItem() {
+    //   return {
+    //     name: 'kobe',
+    //     age: 40
+    //   }
+    // }
+    // // 这时三个对象都各自指向一个自己的内存地址
+    // let ojb1 = getItem();
+    // let ojb2 = getItem();
+    // let ojb3 = getItem();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-on参数传递问题</title>
+</head>
+<body>
+  <div id="app">
+    <!---------------------- 1、当事件调用的方法没有参数的情况： ------------------------->
+    <!-- 只有当click事件调用的方法没有参数时才可以不加() -->
+    <!-- 以下两个按钮效果一样 -->
+    <button @click="btnclick1()">按钮1</button>
+    <button @click="btnclick1">按钮1-副本</button><br><br>
+
+    <!------------------- 2、方法需要传入一个参数，但是省略了()的情况： ------------------>
+    <!-- 正常情况下写法 -->
+    <button @click="btnclick2(123)">按钮2-正常</button>
+    <!-- 写了()，但是没有传入参数，就会将undefined作为参数传入 -->
+    <button @click="btnclick2()">按钮2-未传入参数</button>
+    <!-- 没有写(),这个时候vue会默认将浏览器产生的event对象作为参数传入方法中 -->
+    <!-- 浏览器中发生点击事件时，会自动生成event对象 -->
+    <button @click="btnclick2">按钮2-未写( )</button><br><br>
+
+    <!------------------ 3、方法需要event对象，又需要其他参数的情况： -------------------->
+    <!-- 手动获取浏览器产生的event对象：加上$event -->
+    <!-- 第一个参数若是字符串不加''会被认为是变量,需要在data定义；加了则传入输入的字符串 -->
+    <button @click="btnclick3('abc', $event)">按钮3-正常</button>
+    <button @click="btnclick3(abc, $event)">按钮3-字符串不加' '</button>
+
+
+  </div>
+  
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      methods: {
+        btnclick1() {
+          console.log('btnclick1');
+        },
+        btnclick2(abc) {
+          console.log('-------', abc);
+        },
+        btnclick3(abc, event) {
+          console.log('++++++', abc, event);
+          
+        }
+      }
+    })
+
+    // 如果函数需要参数，但是没有传入，那么函数的形参为undefined
+    // function abc(name) {
+    //   console.log(name);
+    // }
+    // abc();
+
+  </script>
+</body>
+</html>

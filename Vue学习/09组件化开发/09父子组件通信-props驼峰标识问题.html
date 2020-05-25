@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父子组件通信-props驼峰标识问题</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 如果props里的属性要写成驼峰标记，在显示时要转换:cInfo -> c-info,即把大写I替换成-i -->
+    <cpn :c-info="info" :child-my-message="childMyMessage"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2> {{cInfo}} </h2>
+      <h2> {{childMyMessage}} </h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const cpn = {
+      template: '#cpn',
+      props: {                          
+        cInfo: {
+          type: Object,
+          default() {
+            return {};
+          }
+        },
+        childMyMessage: {
+          type: String,
+          default() {
+            return 'aaaa';
+          }
+        }
+      },
+    }
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        info: {
+          name: 'kobe',
+          age: 40,
+          heithgt: 1.88
+        },
+        childMyMessage: '哈哈哈'
+      },
+      components: {
+        cpn: cpn
+      }
+    })
+
+  </script>
+</body>
+</html>

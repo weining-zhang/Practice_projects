@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组哪些方法是响应式的</title>
+</head>
+<body>
+  <div id="app">
+
+    <ul>
+      <li v-for="value of letters"> {{value}} </li>
+    </ul>
+    <button @click="btnClick">按钮</button>
+
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        letters: ['a', 'b', 'c', 'd']
+      },
+      methods: {
+        btnClick() {
+          //---------------------------下面是响应式的数组方法---------------------------
+          //1、push() 在数组末尾插入元素
+          this.letters.push('aaa', 'bbb', 'ccc');
+
+          //2、unshift() 在数组开头插入元素
+          // this.letters.unshift('aaa', 'bbb','ccc');
+
+          //3、pop() 删除数组的最后一个元素
+          // this.letters.pop();
+
+          //4、shift() 删除数组的第一个元素
+          // this.letters.shift();
+
+          //5、splice() 根据给的参数个数可以删除元素/插入元素/替换元素(先删除几个再插入几个)
+          // this.letters.splice();
+
+          //6、sort() 把数组按正序排序
+          // this.letters.sort();
+
+          //7、reverse() 把数组按逆序排序
+          // this.letters.reverse();
+          //----------------------------------------------------------------------------
+
+          // 注意：通过索引值修改数组中的元素不是响应式的
+          // this.letters[0] = 'bbb'; //数组被改变了但是不会响应更新到界面
+          // 替换通过索引值修改数组中元素的方案：
+          // 1、this.letters.splice(0, 1, 'bbb'); //可以通过splice来修改数组中的元素
+          // 2、set(要修改的对象, 索引值, 修改后的值) vue的set方法也可修改数组元素
+          // Vue.set(this.letters, 0, 'bbb');
+        }
+      }
+    })
+  </script>
+</body>
+</html>
