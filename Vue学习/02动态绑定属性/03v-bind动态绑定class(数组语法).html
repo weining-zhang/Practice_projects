@@ -12,8 +12,11 @@
     <!-- 加上单引号当成字符串 -->
     <h2 class="title" :class="['active','line']">{{message}}</h2>
     <!-- 不加单引号被当成变量 -->
+    <!-- 和普通的类不冲突，有三个类title、active、line -->
     <h2 class="title" :class="[active, line]">{{message}}</h2>
-    <h2 class="title" :class="getClasses()">{{message}}</h2>
+
+    <!-- 如果过于复杂，可以放在一个method或者computed中，getClasses是一个计算属性也可以是一个method -->
+    <h2 class="title" :class="getClasses">{{message}}</h2>
 
   </div>
   <script src="../js/vue.js"></script>
@@ -25,10 +28,15 @@
         active: "aaa",
         line: 'bbb'
       },
-      methods: {
+      computed: {
         getClasses() {
           return [this.active, this.line]
         }
+      },
+      methods: {
+        // getClasses() {
+        //   return [this.active, this.line]
+        // }
       },
     })
   </script>

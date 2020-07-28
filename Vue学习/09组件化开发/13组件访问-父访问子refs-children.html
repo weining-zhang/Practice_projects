@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父组件访问子组件</title>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn ref="aaa"></cpn>
+    <button @click="btnClick">按钮</button>
+  </div>
+
+  <template id="cpn">
+    <div></div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+       
+      },
+      methods: {
+        btnClick() {
+          // 1、(少用)通过$children获取到子组件
+          // console.log(this.$children); //$children是一个数组，装着每一个写在body里的子组件
+          // for (let cpn of this.$children) {
+          //   console.log(cpn.name);
+          //   cpn.showMessage();
+          // }
+
+          // 2、(常用)通过$refs，默认是一个空对象，要在父组件里的子组件标签设置一个ref属性：ref=""，值为绑定的组件/元素
+          // ref如果是绑定在组件中,那么通过this.$refs.refname获取到的是一个组件对象
+          // ref如果是绑定在普通的元素中,那么通过this.$refs.refname获取到的是一个元素对象
+
+          // // console.log(this.$refs);
+          console.log(this.$refs.aaa.name);
+        }
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              name: '我是子组件的name'
+            }
+          },
+          methods: {
+            showMessage() {
+              console.log('showMessage');
+            }
+          }
+        }
+      }
+    })
+    
+  </script>
+</body>
+</html>

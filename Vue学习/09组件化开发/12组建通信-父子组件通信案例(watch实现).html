@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>父子组件通信案例</title>
+  <title>父子组件通信案例（watch实现）</title>
 </head>
 <body>
   <div id="app">
@@ -17,12 +17,10 @@
     <div>
       <h2> props:{{number1}} </h2>
       <h2>data:{{dnumber1}} </h2>
-      <!-- <input type="text"  v-model="dnumber1"> -->
-      <input type="text" v-model="dnumber1" @input="num1Input">
+      <input type="text" v-model="dnumber1">
       <h2> props:{{number2}} </h2>
       <h2>data:{{dnumber2}} </h2>
-      <!-- <input type="text"  v-model="dnumber2"> -->
-      <input type="text" :value="dnumber2" @input="num2Input">
+      <input type="text" v-model="dnumber2">
     </div>
   </template>
 
@@ -57,24 +55,18 @@
             }
           },
           methods: {
-            num1Input(event) {
-              // 1、将input中的value赋值到dnumber中
-              // this.dnumber1 = event.target.value;
-
-              // 2、为了让父组件修改值，发出一个事件
-              this.$emit('num1change', this.dnumber1)
-
-              // 3、同时修改dnumber2的值，实现修改dnumber1值的时候dnumber2值为dnumber1的100倍
+           
+          },
+          watch: {
+            dnumber1(newValue) {
               this.dnumber2 = this.dnumber1 * 100;
+              this.$emit('num1change', this.dnumber1)
               this.$emit('num2change', this.dnumber2)
             },
-            num2Input(event) {
-              this.dnumber2 = event.target.value
+            dnumber2(newValue) {
+              this.dnumber1 = this.dnumber2 / 100;
               this.$emit('num2change', this.dnumber2)
-
-              // 同时修改dnumber1的值，实现修改dnumber2值的时候dnumber1值为dnumber1的一百分之一
-              // this.dnumber1 = this.dnumber2 / 100;
-              // this.$emit('num1change', this.dnumber1)
+              this.$emit('num1change', this.dnumber1)
             }
           }
         }

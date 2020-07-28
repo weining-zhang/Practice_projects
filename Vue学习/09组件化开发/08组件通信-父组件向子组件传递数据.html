@@ -21,7 +21,7 @@
 
   <script src="../js/vue.js"></script>
   <script>
-    // 父传子：通过组件的props属性，在组件中，使用props属性来声明需要从父级接受到的数据
+    // 父传子：通过组件的props属性，在子组件中，使用props属性来声明需要从父级接受到的数据
     // 在root组件里注册组件可直接写成创建对象的形式（const cpn={}），而不用写成创建组件构造器的形式:
     // const cpn = Vue.extend({})
     const cpn = { 
@@ -40,18 +40,10 @@
         },
         cmovies: {
           type: Array,
-          default() { //类型是对象或数组时，默认值必须是一个函数，而不能写成default: []或者default: {}
+          default() { //类型是 对象或数组 时，默认值必须是一个函数，而不能写成default: []或者default: {}
             return []
           }
         }
-      },
-      data() {
-        return {
-
-        }
-      },
-      methods: {
-
       },
     }
 

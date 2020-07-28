@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve('hello Vue.js')
+      reject('error message')
+    }, 1000);
+    //如果不想用then对应resolve，catch对应reject的话
+    //then也可以同时对应resolve和reject，then里传入两个参数，第一个参数对应resolve，第二个参数对应reject.
+  }).then(data => {
+    console.log(data);
+  }, err => {
+    console.log(err);
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    //需求本身需要两个或多个请求时，可使用Promise的all方法
+    Promise.all([
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('拿到Kobe的信息');
+          resolve({name: 'Kobe', age: 45})
+        }, 2000);
+      }),
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('拿到Welnee的信息');
+          resolve({name: 'Welnee', age: 20})
+        }, 1000);
+      })
+    ]).then(result => {//all方法的then拿到所有请求后的结果存在一个数组里
+      console.log(result);
+    })
+  </script>
+</body>
+</html>
