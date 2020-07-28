@@ -1,5 +1,5 @@
 
-function showNumberWithAnimation( i , j , randNumber ){
+function showNumberWithAnimation( i , j , randNumber ){ //产生数字效果
 
     var numberCell = $('#number-cell-' + i + "-" + j );
 
@@ -15,7 +15,7 @@ function showNumberWithAnimation( i , j , randNumber ){
     },50);
 }
 
-function showMoveAnimation( fromx , fromy , tox, toy ){
+function showMoveAnimation( fromx , fromy , tox, toy ){ //移动效果
 
     var numberCell = $('#number-cell-' + fromx + '-' + fromy );
     numberCell.animate({

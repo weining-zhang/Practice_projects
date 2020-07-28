@@ -10,6 +10,7 @@ $(document).ready(function(){
 function newgame(){
     //初始化棋盘格
     init();
+
     //在随机两个格子生成数字
     generateOneNumber();
     generateOneNumber();
@@ -18,17 +19,22 @@ function newgame(){
 function init(){
     for( var i = 0 ; i < 4 ; i ++ )
         for( var j = 0 ; j < 4 ; j ++ ){
+            // 获取网格中每个格子
+            var gridCell = $('#grid-cell-'+i+"-"+j); 
 
-            var gridCell = $('#grid-cell-'+i+"-"+j); //初始化格子位置
-            gridCell.css('top', getPosTop( i , j ) );
+            // 初始化每个格子的位置
+            gridCell.css('top', getPosTop( i , j ) ); 
             gridCell.css('left', getPosLeft( i , j ) );
         }
 
     for( var i = 0 ; i < 4 ; i ++ ){
-        board[i] = new Array(); //做成二维数组
+        board[i] = new Array(); // 做成二维数组
         hasConflicted[i] = new Array();
         for( var j = 0 ; j < 4 ; j ++ ){
+            // 初始化每个格子数字为0
             board[i][j] = 0;
+
+            // 初始化设置每个格子上都未有数字
             hasConflicted[i][j] = false;
         }
     }
@@ -46,14 +52,16 @@ function updateBoardView(){ //更新格子视图
         for( var j = 0 ; j < 4 ; j ++ ){
             $("#grid-container").append( '<div class="number-cell" id="number-cell-'+i+'-'+j+'"></div>' );
             var theNumberCell = $('#number-cell-'+i+'-'+j);
-
-            if( board[i][j] == 0 ){ //格子为空时
+            
+            // 当前格子为空时
+            if( board[i][j] == 0 ){ 
                 theNumberCell.css('width','0px');
                 theNumberCell.css('height','0px');
                 theNumberCell.css('top',getPosTop(i,j) + 50 );
                 theNumberCell.css('left',getPosLeft(i,j) + 50 );
             }
-            else{ //格子不为空时
+            // 当前格子不为空时
+            else{ 
                 theNumberCell.css('width','100px');
                 theNumberCell.css('height','100px');
                 theNumberCell.css('top',getPosTop(i,j));
@@ -67,14 +75,23 @@ function updateBoardView(){ //更新格子视图
         }
 }
 
-function generateOneNumber(){
+function generateOneNumber(){ // 在随机一个格子产生一个随机的数字
 
+    // 随机生成数字前先判断网格还有无空的格子
     if( nospace( board ) )
         return false;
 
-    //随机一个位置
+    // 随机一个位置
     var randx = parseInt( Math.floor( Math.random() * 4 ) );
     var randy = parseInt( Math.floor( Math.random() * 4 ) );
+
+    // while(true) {
+    //     if (board[randx][randy] == 0)
+    //         break;
+
+    //     randx = parseInt( Math.floor( Math.random()  * 4 ) );
+    //     randy = parseInt( Math.floor( Math.random()  * 4 ) );
+    // }
 
     var times = 0;
     while( times < 50 ){
@@ -83,7 +100,10 @@ function generateOneNumber(){
 
         randx = parseInt( Math.floor( Math.random()  * 4 ) );
         randy = parseInt( Math.floor( Math.random()  * 4 ) );
+
+        times ++;
     }
+    // 循环50次随机位置还未找到空格子，则手动查找空格子
     while (times == 50) {
         for( var i = 0 ; i < 4 ; i ++ )
             for( var j = 0 ; j < 4 ; j ++ ) 
@@ -93,21 +113,24 @@ function generateOneNumber(){
                 }
     }
 
-    //随机一个数字
+    // 随机生成一个数字：2 或 4
     var randNumber = Math.random() < 0.5 ? 2 : 4;
 
-    //在随机位置显示随机数字
+    // 在随机位置显示随机数字
     board[randx][randy] = randNumber;
+    // 加入数字产生动画效果
     showNumberWithAnimation( randx , randy , randNumber );
 
     return true;
 }
 
-$(document).keydown( function( event ){
+$(document).keydown( function( event ){ // 定义用户按键产生的结果
     switch( event.which ){
         case 37: //left
             if( moveLeft() ){
                 setTimeout("generateOneNumber()", 210);
+
+                // 每次移动后判断游戏是否结束
                 setTimeout("isgameover()", 300);
             }
             break;
@@ -134,19 +157,21 @@ $(document).keydown( function( event ){
     }
 });
 
-function isgameover(){
+function isgameover(){ // 判断游戏是否结束
+    // 网格没有空格子&所有格子不能移动时，游戏结束
     if (nospace(board) && nomove(board)) 
         gameover();
     
 }
 
-function gameover() {
+function gameover() { // 弹出游戏结束并显示得分
     alert(`Game Over!
     Score:${score}`);
 }
 
-function moveLeft(){ //向左移动
+function moveLeft(){ //向左移动逻辑
 
+    // 判断网格中是否还能向左移动
     if( !canMoveLeft( board ) )
         return false;
 
@@ -156,14 +181,16 @@ function moveLeft(){ //向左移动
             if( board[i][j] != 0 ){
 
                 for( var k = 0 ; k < j ; k ++ ){
-                    if( board[i][k] == 0 && noBlockHorizontal( i , k , j , board ) ){ //左边落脚位置没有数字且移动路径没有障碍时
+                    //左边落脚位置没有数字 且 移动路径没有障碍时
+                    if( board[i][k] == 0 && noBlockHorizontal( i , k , j , board ) ){ 
                         //move
                         showMoveAnimation( i , j , i , k );
                         board[i][k] = board[i][j];
                         board[i][j] = 0;
                         continue;
                     }
-                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , k , j , board ) && !hasConflicted[i][k] ){ //左边落脚位置数字等于待判定元素数字且移动路径没有障碍时
+                    //左边落脚位置数字等于待判定元素数字 且 移动路径没有障碍时
+                    else if( board[i][k] == board[i][j] && noBlockHorizontal( i , k , j , board ) && !hasConflicted[i][k] ){ 
                         //move
                         showMoveAnimation( i , j , i , k );
                         //add
@@ -184,7 +211,7 @@ function moveLeft(){ //向左移动
     return true;
 }
 
-function moveRight() { //向右移动
+function moveRight() { //向右移动逻辑
     if (!canMoveRight(board))
         return false;
 
@@ -221,7 +248,7 @@ function moveRight() { //向右移动
     return true;
 }   
 
-function moveUp() { //向上移动
+function moveUp() { //向上移动逻辑
     if (!canMoveUp(board))
         return false;
     
@@ -259,7 +286,7 @@ function moveUp() { //向上移动
     return true;        
 }
 
-function moveDown() { //向下移动
+function moveDown() { //向下移动逻辑
     if (!canMoveDown(board))
         return false;
     

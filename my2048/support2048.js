@@ -7,7 +7,7 @@ function getPosLeft( i , j ){
     return 20 + j*120;
 }
 
-function getNumberBackgroundColor( number ){ //设置数字背景颜色
+function getNumberBackgroundColor( number ){ // 设置特定数字的背景颜色
     switch( number ){
         case 2:return "#eee4da";break;
         case 4:return "#ede0c8";break;
@@ -34,7 +34,7 @@ function getNumberColor( number ){ //设置数字颜色:4以上为白色
     return "white";
 }
 
-function nospace( board ){ //判断是否还有空间:格子值是否为0
+function nospace( board ){ // 判断网格是否还有空格子：格子值是否为0
 
     for( var i = 0 ; i < 4 ; i ++ )
         for( var j = 0 ; j < 4 ; j ++ )
